@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Ai Demo</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<h1>Hello My Ai Demo!</h1>
+<div id="app">
+    <h1>NLP纠错</h1>
+    <el-input placeholder="请输入内容" v-model="input" clearable> </el-input>
+    <el-input
+            type="textarea"
+            :rows="2"
+            placeholder="识别结果"
+            v-model="res"
+    >
+    </el-input>
+    <el-button type="primary">纠错</el-button>
+
+</div>
+
+</body>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.min.js" ></script>
+
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            "nlp_input":"",
+            "res":""
+        },
+        methods: {
+            nlp_correction() {
+                axios.get("http://127.0.0.1:8080/nlp", {
+                    params: {
+                        text: this.nlp_input
+                    }
+                }).then(res => {
+                    this.nlp_output = res.data;
+                    console.log(res.data);
+                })
+            }
+        }
+
+    });
+</script>
+</html>
